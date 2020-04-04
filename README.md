@@ -1,6 +1,6 @@
-#Nom : HASSANE WANKOYE Abdourahamane
-#Classe: M2GLSI
-#SN/DAKAR/UCAD/ESP/DGI
+# Nom : HASSANE WANKOYE Abdourahamane
+# Classe: M2GLSI
+# SN/DAKAR/UCAD/ESP/DGI
 
 # Le but du projet est de créer une application mobile de gestion de commande pour un resto.
 
