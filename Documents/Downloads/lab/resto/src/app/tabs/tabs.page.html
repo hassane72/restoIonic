@@ -1,0 +1,25 @@
+<ion-tabs>
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button *ngIf="user.role.type == 'admin'" tab="menu">
+      <ion-icon name="grid"></ion-icon>
+      <ion-label>Menu</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button *ngIf="user.role.type == 'employe'" tab="commander">
+      <ion-icon name="grid"></ion-icon>
+      <ion-label>commander</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button *ngIf="user.role.type == 'admin'" tab="plat">
+      <ion-icon name="restaurant"></ion-icon>
+      <ion-label>Plat</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="compte">
+      <ion-icon name="person"></ion-icon>
+      <ion-label>Compte</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>

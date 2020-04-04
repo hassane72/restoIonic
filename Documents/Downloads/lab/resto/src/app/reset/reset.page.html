@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="resetForm" (submit)="reset(resetForm.value)">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">Register</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input formControlName="email"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="error-message" *ngIf="resetForm.get('email').hasError(validation.type) && (resetForm.get('email').dirty || resetForm.get('email').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+          <ion-label position="stacked">Mot de passe</ion-label>
+          <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="error-message" *ngIf="resetForm.get('password').hasError(validation.type) && (resetForm.get('password').dirty || resetForm.get('password').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="stacked">Confirmation</ion-label>
+            <ion-input formControlName="confirmPassword" type="password"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="error-message" *ngIf="resetForm.get('confirmPassword').hasError(validation.type) && resetForm.get('confirmPassword').errors.ConfirmPassword && (resetForm.get('confirmPassword').dirty || resetForm.get('confirmPassword').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-list>
+        <ion-button type="submit" *ngIf="!resetForm.errors" expand="full">S'inscrire</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>

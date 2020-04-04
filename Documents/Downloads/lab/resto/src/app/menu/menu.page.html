@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Menu
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/members/menu/ajouter">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list *ngIf="menus.length == 0">
+    <ion-item *ngFor="let i of [1,2,3,4,5]">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label class="ion-text-capitalize">
+        <h2>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h2>
+        <p>
+          <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item *ngFor="let poke of menus;" (click)="detailMenu(poke.id);$event.stopPropagation()">
+      <ion-avatar slot="start">
+        <img src="/assets/menu.png" style="background: #F2F2F2;">
+      </ion-avatar>
+      <ion-label class="ion-text-capitalize">
+        <h2>Titre: {{ poke.title }}</h2>
+        <p>Date: {{ poke.datemenu | date:'dd/MM/yyyy' }}</p>
+        <ion-button fill="outline" slot="end"  color="warning" (click)="modifierMenu(poke.id);$event.stopPropagation()"> <ion-icon name="create" color="warning"></ion-icon> <ion-skeleton-text animated style="width: 5%"></ion-skeleton-text></ion-button>
+        <ion-button fill="outline" slot="end"  color="danger" (click)="delete(poke)" > <ion-icon name="trash" color="danger" ></ion-icon> <ion-skeleton-text animated style="width: 5%"></ion-skeleton-text></ion-button>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="loadMenu(true, $event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more Pokemon...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,151 @@
+<ion-content>
+  <div class="header">
+    <h2 *ngIf="user">{{ user.username }}</h2>
+    <div class="space-between">
+      <div class="followings">
+        <ion-badge color="primary" mode="ios" (click)="selectImage()"> <ion-icon name="aperture"></ion-icon></ion-badge>
+        <p>photo</p>
+      </div>
+      <div class="followings">
+        <ion-badge color="primary" mode="ios" (click)="logout()"><ion-icon name="log-out"></ion-icon></ion-badge>
+        <p>log out</p>
+      </div>
+    </div>
+  </div>
+  <div class="flex">
+    <div class="box-border">
+      <div class="border-white">
+        <div class="img-box">
+          <img src="{{user.avatar}}">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let img of images; index as pos" text-wrap>
+      <ion-thumbnail slot="start">
+        <ion-img [src]="img.path"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        {{ img.name }}
+        {{ img.path }}
+      </ion-label>
+      <ion-button slot="end" fill="clear" (click)="startUpload(img)">
+        <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
+      </ion-button>
+      <ion-button slot="end" fill="clear" (click)="deleteImage(img, pos)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <form [formGroup]="updateForm" (submit)="update(updateForm.value)">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">Profile</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">Nom d'utilisateur</ion-label>
+            <ion-input formControlName="username"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="error-message" *ngIf="updateForm.get('username').hasError(validation.type) && (updateForm.get('username').dirty || updateForm.get('username').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input formControlName="email"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="error-message" *ngIf="updateForm.get('email').hasError(validation.type) && (updateForm.get('email').dirty || updateForm.get('email').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="stacked">Mot de passe</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="error-message" *ngIf="updateForm.get('password').hasError(validation.type) && (updateForm.get('password').dirty || updateForm.get('password').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="stacked">Confirmation</ion-label>
+            <ion-input formControlName="confirmPassword" type="password"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="error-message" *ngIf="updateForm.get('confirmPassword').hasError(validation.type) && updateForm.get('confirmPassword').errors.ConfirmPassword && (updateForm.get('confirmPassword').dirty || updateForm.get('confirmPassword').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-list>
+        <ion-button type="submit" *ngIf="!updateForm.errors" expand="full">S'inscrire</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </form>
+  <ion-card>
+    <ion-list *ngIf="commandes.length == 0">
+      <ion-item>
+        <h2>Historique commande</h2>
+      </ion-item>
+      <ion-item *ngFor="let i of [1,2,3,4,5]">
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label class="ion-text-capitalize">
+          <h2>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h2>
+          <p>
+            <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="user.role.type != 'admin'">
+      <ion-item>
+        <h2>Historique commande</h2>
+      </ion-item>
+      <ion-item *ngFor="let commande of commandes;">
+        <ion-avatar slot="start">
+          <img src="/assets/menu.png" style="background: #F2F2F2;">
+        </ion-avatar>
+        <ion-label class="ion-text-capitalize">
+          <h2>Titre: {{ commande.menu.title }} du {{commande.menu.datemenu | date: 'dd/MM/yyyy'}}</h2>
+          <p *ngFor="let plat of commande.plats">plats: {{ plat.nom }} -- prix: {{plat.prix}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="user.role.type == 'admin'">
+      <ion-item>
+        <h2>Historique commande</h2>
+      </ion-item>
+      <ion-item *ngFor="let commande of commandes;">
+        <ion-avatar slot="start">
+          <img src="/assets/menu.png" style="background: #F2F2F2;">
+        </ion-avatar>
+        <ion-label class="ion-text-capitalize">
+          <h2>Titre: {{ commande.menu.title }} du {{commande.menu.datemenu | date: 'dd/MM/yyyy'}}</h2>
+          <h3>Employer: {{commande.user.username}}</h3>
+          <p *ngFor="let plat of commande.plats">plats: {{ plat.nom }} -- prix: {{plat.prix}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

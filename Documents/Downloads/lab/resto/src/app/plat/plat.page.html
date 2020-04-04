@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Plats
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/tabs/plat/ajouter">
+    <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    </ion-fab>
+  <ion-grid>
+    <ion-row *ngIf="plats.length == 0">
+      <ion-col col-4  *ngFor="let i of [1]">
+        <ion-card id="card">
+          <ion-item>
+            <ion-icon name="restaurant" slot="start"></ion-icon>
+            <ion-button fill="outline" slot="end"  color="warning"> <ion-icon name="create" color="warning"></ion-icon> <ion-skeleton-text animated style="width: 5%"></ion-skeleton-text></ion-button>
+            <ion-button fill="outline" slot="end"  color="danger" > <ion-icon name="trash" color="danger" ></ion-icon> <ion-skeleton-text animated style="width: 5%"></ion-skeleton-text></ion-button>
+          </ion-item>
+          <ion-card-header>
+            <img src="" alt="" id="img"/>
+            <ion-card-title> <ion-skeleton-text animated style="width: 10%"></ion-skeleton-text></ion-card-title>
+            <ion-card-subtitle>Prix:  <ion-skeleton-text animated style="width: 8%"></ion-skeleton-text>} fcfa</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-skeleton-text animated style="width: 10%"></ion-skeleton-text>...
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  <ion-row>
+  <ion-col col-4  *ngFor="let plat of plats">
+  <ion-card id="card">
+    <ion-item>
+      <ion-icon name="restaurant" slot="start"></ion-icon>
+      <ion-button fill="outline" slot="end"  color="warning" (click)="modifierPlat(plat.id)"> <ion-icon name="create" color="warning"></ion-icon>Edit</ion-button>
+      <ion-button fill="outline" slot="end"  color="danger" (click)="delete(plat)"> <ion-icon name="trash" color="danger" (click)="delete(plat)"></ion-icon>delete</ion-button>
+    </ion-item>
+    <ion-card-header>
+      <img src="{{plat.image}}" alt="" id="img"/>
+      <ion-card-title>{{plat.nom}}</ion-card-title>
+      <ion-card-subtitle>Prix: {{plat.prix}} fcfa</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      {{plat.Description | slice:0:100 }}...
+    </ion-card-content>
+  </ion-card>
+</ion-col>
+    <ion-infinite-scroll (ionInfinite)="loadPlat(true, $event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more Pokemon...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-row>
+</ion-grid>
+</div>
+</ion-content>
+
+
+
+

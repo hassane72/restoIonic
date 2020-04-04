@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-capitalize">Menu du jours</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="menu.length == 0">
+    <h3>Pas de menu pour aujourd'hui</h3>
+  </div>
+  <div *ngIf="menu.length > 0">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-capitalize">#{{ menu.title }}
+        </ion-card-title>
+        <ion-card-subtitle class="ion-text-capitalize">{{ menu.datemenu | date:'dd/MM/yyyy' }} </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list lines="full">
+          <ion-item>
+            <ion-text>List des plats </ion-text>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+    <ion-button *ngIf="!isSubmit" fill="outline" slot="end"  color="warning" (click)="submitCommande(menu)">Valider vos commande?</ion-button>
+    <ion-button *ngIf="isSubmit" fill="outline" slot="end"  color="danger">commande valider</ion-button>
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide *ngFor="let plat of menu.plats">
+        <ion-card id="card">
+          <ion-item>
+            <ion-icon name="restaurant" slot="start"></ion-icon>
+            <ion-button *ngIf="!verifExist(plat) && !isSubmit" fill="outline" slot="end"  color="warning" (click)="addPlat(plat)"> <ion-icon name="checkmark-circle" color="warning"></ion-icon> Commander </ion-button>
+            <ion-button *ngIf="verifExist(plat) && !isSubmit" fill="outline" slot="end"  color="danger" (click)="removePlat(plat)"> <ion-icon name="checkmark-circle" color="danger"></ion-icon> Annuler </ion-button>
+          </ion-item>
+          <ion-card-header>
+            <img src="{{plat.image}}" alt="" id="img"/>
+            <ion-card-title>{{plat.nom}}</ion-card-title>
+            <ion-card-subtitle>Prix: {{plat.prix}} fcfa</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            {{plat.Description | slice:0:100 }}...
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+</ion-content>

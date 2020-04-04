@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>ajouterPlat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<form (submit)="ajouterPlat()">
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked"> Nom </ion-label>
+      <ion-input [(ngModel)]="plat.nom" name="nom" type="text" required="required" minlength="2" #actor="ngModel"></ion-input>
+      <ion-text color="danger" *ngIf="actor.hasError('minlength')">Doit contenir deux caracteres</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Prix</ion-label>
+      <ion-input [(ngModel)]="plat.prix" name="prix" type="number" required="required"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Description</ion-label>
+      <ion-textarea [(ngModel)]="plat.Description" name="Description"></ion-textarea>
+    </ion-item>
+    <ion-button type="submit" expand="full">Enregistrer</ion-button>
+  </ion-list>
+
+</form>
+</ion-content>

@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Devdactic Auth</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-row>
+    <ion-col size="12" size-sm="10" offset-sm="1" size-md="8" offset-md="2" size-lg="6" offset-lg="3" size-xl="4"
+             offset-xl="4">
+      <form [formGroup]="loginForm" (submit)="login(loginForm.value)">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title class="ion-text-center">Your Account</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+
+          <ion-item>
+            <ion-label position="floating" color="primary">Idenfiant</ion-label>
+            <ion-input formControlName="identifier"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="error-message" *ngIf="loginForm.get('identifier').hasError(validation.type) && (loginForm.get('identifier').dirty || loginForm.get('identifier').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item >
+            <ion-label position="floating" color="primary">Password</ion-label>
+            <ion-input type="password" formControlName="password">
+            </ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="error-message" *ngIf="loginForm.get('password').hasError(validation.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-button type="submit" expand="full">Se connecter</ion-button>
+          <ion-button expand="block" color="secondary" routerLink="/register" routerDirection="forward">S'inscrire
+          </ion-button>
+          <ion-button expand="block" color="success" routerLink="/reset" routerDirection="forward">Reset pwd
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+      </form>
+    </ion-col>
+  </ion-row>
+
+</ion-content>
