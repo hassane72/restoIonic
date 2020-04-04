@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "connection": "default",
+  "collectionName": "menus",
+  "info": {
+    "name": "menu"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "datemenu": {
+      "type": "datetime"
+    },
+    "plats": {
+      "collection": "plat"
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}

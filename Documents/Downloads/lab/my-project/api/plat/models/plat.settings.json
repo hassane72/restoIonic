@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "connection": "default",
+  "collectionName": "plats",
+  "info": {
+    "name": "Plat"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "prix": {
+      "type": "integer"
+    },
+    "nom": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    },
+    "menus": {
+      "collection": "menu"
+    }
+  }
+}
