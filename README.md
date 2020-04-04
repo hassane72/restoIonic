@@ -17,3 +17,6 @@ installer node, npm, strapi, ionic, cordova.
 Lorsque vous importer l'application dans votre environnement de travail veuillez lancer strapi et ensuite aller dans le projet
  ionic dans le sous dossier environnements pour changer le chemin de l'url de l'api.
  Puis lancer npm install et enfin ionic serve pour lancer l'application dans le navigateur.
+ # identifiant admin(strapi et auth apk ionic):
+ identifier: hassane
+ pwd : hassane
